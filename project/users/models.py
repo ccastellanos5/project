@@ -10,14 +10,17 @@ from .managers import UserManager
 
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_('email address'), unique = True)
-    first_name = models.CharField(_('first name'), max_length=30)
-    last_name = models.CharField(_('last name'), max_length=30)
-    birth_date = models.DateField()
+    first_name = models.CharField(_('first name'), max_length=30, blank=True)
+    last_name = models.CharField(_('last name'), max_length=30, blank=True)
+    birth_date = models.DateField(blank=True, null=True)
+    is_active = models.BooleanField(_('active'), default=True)
+    # is_staff = models.BooleanField(_('staff'))
+
     GENDER_CHOICES = (
         ('M', 'Male'),
         ('F', 'Female'),
     )
-    gender = models.CharField(choices = GENDER_CHOICES, default='M', max_length = 100)
+    gender = models.CharField(choices = GENDER_CHOICES, default='M', max_length = 100, blank=True)
 
     objects = UserManager()
 
