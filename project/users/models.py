@@ -11,7 +11,7 @@ from .managers import UserManager
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_('email address'), unique = True)
     first_name = models.CharField(_('first name'), max_length=30)
-    last_name = models.ChardField(_('last name'), max_length=30)
+    last_name = models.CharField(_('last name'), max_length=30)
     birth_date = models.DateField()
     GENDER_CHOICES = (
         ('M', 'Male'),
@@ -37,3 +37,9 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def email_user(self, subject, message, from_email=None, **kwargs):
         send_mail(subject, message, from_email, [self.email], **kwargs)
+
+    def get_birth_date(self):
+        return self.birth_date
+
+    def get_gender(self):
+        return self.gender
